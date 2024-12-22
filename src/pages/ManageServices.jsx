@@ -26,22 +26,10 @@ const ManageServices = () => {
     }
   };
 
+  // console.log(typeof myServices);
+
   // Delete a service
   const handleDelete = async (id) => {
-    // const confirm = window.confirm(
-    //   "Are you sure you want to delete this service?"
-    // );
-    // if (confirm) {
-    //   try {
-    //     await axios.delete(`${import.meta.env.VITE_API_URL}/service/${id}`);
-    //     setMyServices(myServices.filter((service) => service._id !== id));
-    //     toast.success("Service deleted successfully!");
-    //   } catch (error) {
-    //     console.error("Error deleting service:", error);
-    //     toast.error("Failed to delete the service.");
-    //   }
-    // }
-
     //----------------------------------------------------------------
     Swal.fire({
       title: "Are you sure?",

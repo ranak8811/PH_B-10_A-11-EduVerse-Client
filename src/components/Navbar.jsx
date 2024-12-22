@@ -33,7 +33,7 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/login"} className={"dropdown"}>
+              <NavLink to={"/bookedService"} className={"dropdown"}>
                 Booked-Services
               </NavLink>
             </li>
