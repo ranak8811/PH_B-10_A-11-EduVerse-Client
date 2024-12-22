@@ -1,22 +1,39 @@
+/* Navbar Links */
 .custom-link {
   color: green;
   font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
   transition: color 0.3s, background-color 0.3s;
 }
 
 .custom-link:hover {
   background-color: red;
+  color: white;
   text-decoration: none;
 }
 
 .active {
   font-weight: bold;
   background-color: red !important;
+  color: white;
   text-decoration: underline;
 }
 
-.dropdown {
-  background-color: black;
+/* Dropdown Items */
+.dropdown-item {
+  padding: 0.5rem;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+  background-color: red;
   color: white;
-  border: 1px solid green;
+}
+
+.active.dropdown-item {
+  background-color: red;
+  color: white;
+  font-weight: bold;
 }
