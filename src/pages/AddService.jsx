@@ -68,7 +68,10 @@ const AddService = () => {
 
     try {
       // Post the object using axios (dummy API for now)
-      await axios.post("http://localhost:4000/services", serviceObject);
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/services`,
+        serviceObject
+      );
       setSuccessMessage("Service added successfully!");
       setFormData({
         imageUrl: "",

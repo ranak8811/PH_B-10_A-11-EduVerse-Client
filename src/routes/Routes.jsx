@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 import AllServices from "../pages/AllServices";
 import AddService from "../pages/AddService";
 import PrivateRouter from "./PrivateRouter";
+import ServiceDetails from "../pages/ServiceDetails";
 
 const router = createBrowserRouter([
   {
@@ -34,10 +35,19 @@ const router = createBrowserRouter([
         path: "/addService",
         element: (
           <PrivateRouter>
-            {" "}
             <AddService></AddService>
           </PrivateRouter>
         ),
+      },
+      {
+        path: "/serviceDetails/:id",
+        element: (
+          <PrivateRouter>
+            <ServiceDetails></ServiceDetails>
+          </PrivateRouter>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/allServices/${params.id}`),
       },
     ],
   },
