@@ -1,0 +1,22 @@
+.custom-link {
+  color: green;
+  font-weight: 500;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.custom-link:hover {
+  background-color: red;
+  text-decoration: none;
+}
+
+.active {
+  font-weight: bold;
+  background-color: red !important;
+  text-decoration: underline;
+}
+
+.dropdown {
+  background-color: black;
+  color: white;
+  border: 1px solid green;
+}
