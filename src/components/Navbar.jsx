@@ -23,7 +23,7 @@ const Navbar = () => {
           <summary className={"custom-link"}>Dashboard</summary>
           <ul className="p-2">
             <li>
-              <NavLink to={"/login"} className={"dropdown"}>
+              <NavLink to={"/addService"} className={"dropdown"}>
                 Add Service
               </NavLink>
             </li>
