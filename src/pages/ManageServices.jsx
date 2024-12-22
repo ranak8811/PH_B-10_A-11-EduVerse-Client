@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const ManageServices = () => {
   const { user } = useAuth();
   const [myServices, setMyServices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const navigate = useNavigate();
   // Fetch user's services
   const fetchMyServices = async () => {
     try {
@@ -26,19 +28,48 @@ const ManageServices = () => {
 
   // Delete a service
   const handleDelete = async (id) => {
-    const confirm = window.confirm(
-      "Are you sure you want to delete this service?"
-    );
-    if (confirm) {
-      try {
-        await axios.delete(`${import.meta.env.VITE_API_URL}/service/${id}`);
-        setMyServices(myServices.filter((service) => service._id !== id));
-        toast.success("Service deleted successfully!");
-      } catch (error) {
-        console.error("Error deleting service:", error);
-        toast.error("Failed to delete the service.");
+    // const confirm = window.confirm(
+    //   "Are you sure you want to delete this service?"
+    // );
+    // if (confirm) {
+    //   try {
+    //     await axios.delete(`${import.meta.env.VITE_API_URL}/service/${id}`);
+    //     setMyServices(myServices.filter((service) => service._id !== id));
+    //     toast.success("Service deleted successfully!");
+    //   } catch (error) {
+    //     console.error("Error deleting service:", error);
+    //     toast.error("Failed to delete the service.");
+    //   }
+    // }
+
+    //----------------------------------------------------------------
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`${import.meta.env.VITE_API_URL}/service/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your service has been deleted.",
+                icon: "success",
+              });
+            }
+            fetchMyServices();
+          });
       }
-    }
+    });
+    //----------------------------------------------------------------
   };
 
   // Trigger fetch on component mount
@@ -109,7 +140,7 @@ const ManageServices = () => {
                       {/* Edit Button */}
                       <button
                         onClick={() =>
-                          toast.success("Edit functionality coming soon!")
+                          navigate(`/updateService/${service._id}`)
                         }
                         className="text-blue-500 hover:text-blue-700"
                       >
@@ -136,27 +167,3 @@ const ManageServices = () => {
 };
 
 export default ManageServices;
-
-// import axios from "axios";
-// import { useEffect, useState } from "react";
-// import useAuth from "../hooks/useAuth";
-
-// const ManageServices = () => {
-//   const { user } = useAuth();
-//   const [myServices, setMyServices] = useState([]);
-
-//   const fetchPopularServices = async () => {
-//     const { data } = await axios.get(
-//       `${import.meta.env.VITE_API_URL}/myAddedService/${user?.email}`
-//     );
-//     setMyServices(data);
-//   };
-
-//   useEffect(() => {
-//     fetchPopularServices();
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, [user]);
-//   return <div>{myServices.length}</div>;
-// };
-
-// export default ManageServices;
