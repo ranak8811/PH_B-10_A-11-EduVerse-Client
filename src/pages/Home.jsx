@@ -3,6 +3,7 @@ import Banner from "../components/Banner";
 import Heading from "../components/Heading";
 import axios from "axios";
 import ServiceCard from "../components/ServiceCard";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [popularServices, setPopularServices] = useState([]);
@@ -36,6 +37,15 @@ const Home = () => {
           {popularServices.map((course) => (
             <ServiceCard key={course._id} course={course}></ServiceCard>
           ))}
+        </div>
+
+        <div className="text-center">
+          <Link
+            to={"/allServices"}
+            className="btn mt-8 bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 dark:from-green-500 dark:to-green-700 dark:hover:from-green-600 dark:hover:to-green-800 text-white font-bold px-6 py-3 rounded-lg"
+          >
+            Show All
+          </Link>
         </div>
       </section>
     </div>

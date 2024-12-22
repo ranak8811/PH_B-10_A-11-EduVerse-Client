@@ -28,7 +28,7 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/login"} className={"dropdown"}>
+              <NavLink to={"/manageServices"} className={"dropdown"}>
                 Manage Service
               </NavLink>
             </li>

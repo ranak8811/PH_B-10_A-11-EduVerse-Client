@@ -1,8 +1,9 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
 const ServiceCard = ({ course }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const {
     _id,
     imageUrl,
@@ -57,16 +58,16 @@ const ServiceCard = ({ course }) => {
             <p className="text-xl font-bold text-red-500">Area: {area}</p>
           )}
 
-          <p className="text-lg font-bold text-green-500">${price}</p>
+          <p className="text-lg font-bold text-green-500">Price: ${price}</p>
         </div>
 
         {/* View Detail Button */}
-        <Link
-          to={`/serviceDetails/${_id}`}
+        <button
+          onClick={() => navigate(`/serviceDetails/${_id}`)}
           className="mt-4 w-full bg-red-500 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
         >
           View Details
-        </Link>
+        </button>
       </div>
     </div>
   );
