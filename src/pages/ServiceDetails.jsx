@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 // import { format } from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
 const ServiceDetails = () => {
   const { user } = useAuth(); // Current user info
@@ -30,7 +31,7 @@ const ServiceDetails = () => {
     setIsModalOpen(true);
   };
 
-  const handlePurchase = () => {
+  const handlePurchase = async () => {
     const purchaseData = {
       serviceId: _id,
       serviceName: name,
@@ -42,24 +43,33 @@ const ServiceDetails = () => {
       serviceDate,
       specialInstruction,
       price,
-      serviceStatus: "pending",
+      serviceStatus: "Pending",
     };
 
     console.table(purchaseData);
 
-    // Show toast notification
-    toast.success("Service booked successfully!");
-    // Reset modal fields
-    setSpecialInstruction("");
-    setServiceDate("");
-    setIsModalOpen(false);
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/bookings`,
+        purchaseData
+      );
+      console.log(data);
+      // Show toast notification
+      toast.success("Service booked successfully!");
+      // Reset modal fields
+      setSpecialInstruction("");
+      setServiceDate("");
+      setIsModalOpen(false);
+    } catch (err) {
+      toast.error(err.message);
+      //   toast.error(err?.response?.data);
+    }
   };
 
-  console.log("Service taking date: ", serviceDate);
+  //   console.log("Service taking date: ", serviceDate);
 
   return (
     <div className="min-h-screen p-5 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      <Toaster /> {/* React Hot Toast */}
       {/* Service Details Container */}
       <div className="max-w-5xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
         {/* Header Image */}
@@ -170,7 +180,7 @@ const ServiceDetails = () => {
                 /> */}
                 {/* Date Picker Input Field */}
                 <DatePicker
-                  className="w-full mt-2 p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring focus:ring-red-400"
+                  className="w-full text-black mt-2 p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring focus:ring-red-400"
                   selected={serviceDate}
                   onChange={(date) => setServiceDate(date)}
                 />
