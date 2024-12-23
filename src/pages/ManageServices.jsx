@@ -1,12 +1,14 @@
-import axios from "axios";
+// import axios from "axios";
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const ManageServices = () => {
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [myServices, setMyServices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -14,10 +16,11 @@ const ManageServices = () => {
   // Fetch user's services
   const fetchMyServices = async () => {
     try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/myAddedService/${user?.email}`,
-        { withCredentials: true }
-      );
+      // const { data } = await axios.get(
+      //   `${import.meta.env.VITE_API_URL}/myAddedService/${user?.email}`,
+      //   { withCredentials: true }
+      // );
+      const { data } = await axiosSecure.get(`/myAddedService/${user?.email}`);
       setMyServices(data);
     } catch (error) {
       console.error("Error fetching services:", error);

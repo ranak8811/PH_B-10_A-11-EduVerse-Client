@@ -1,19 +1,22 @@
-import axios from "axios";
+// import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 import { format } from "date-fns";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const ServiceToDo = () => {
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [services, setServices] = useState([]);
 
   // Fetch user's booked services
   const fetchMyServices = async () => {
     try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/service-to-do/${user?.email}`
-      );
+      // const { data } = await axios.get(
+      //   `${import.meta.env.VITE_API_URL}/service-to-do/${user?.email}`
+      // );
+      const { data } = await axiosSecure.get(`/service-to-do/${user?.email}`);
       setServices(data);
     } catch (error) {
       console.error("Error fetching services:", error);
@@ -24,7 +27,10 @@ const ServiceToDo = () => {
   // Update service status
   const handleStateChange = async (id, status) => {
     try {
-      await axios.patch(`${import.meta.env.VITE_API_URL}/status-update/${id}`, {
+      // await axios.patch(`${import.meta.env.VITE_API_URL}/status-update/${id}`, {
+      //   status,
+      // });
+      await axiosSecure.patch(`/status-update/${id}`, {
         status,
       });
       toast.success("Status updated successfully!");

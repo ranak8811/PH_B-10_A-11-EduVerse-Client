@@ -1,10 +1,12 @@
-import axios from "axios";
+// import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const UpdateService = () => {
+  const axiosSecure = useAxiosSecure();
   const { id } = useParams();
   const course = useLoaderData();
   const { user } = useAuth();
@@ -71,10 +73,11 @@ const UpdateService = () => {
 
     try {
       // Post the object using axios (dummy API for now)
-      await axios.put(
-        `${import.meta.env.VITE_API_URL}/updateService/${id}`,
-        serviceObject
-      );
+      // await axios.put(
+      //   `${import.meta.env.VITE_API_URL}/updateService/${id}`,
+      //   serviceObject
+      // );
+      await axiosSecure.put(`/updateService/${id}`, serviceObject);
       setErrors({});
       toast.success("Your service has been updated successfully");
       navigate("/manageServices");

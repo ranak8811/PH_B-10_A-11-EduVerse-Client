@@ -1,19 +1,22 @@
-import axios from "axios";
+// import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 import { format } from "date-fns";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const BookedService = () => {
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [bookedServices, setBookedServices] = useState([]);
 
   // Fetch user's booked services
   const fetchMyServices = async () => {
     try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/bookedService/${user?.email}`
-      );
+      // const { data } = await axios.get(
+      //   `${import.meta.env.VITE_API_URL}/bookedService/${user?.email}`
+      // );
+      const { data } = await axiosSecure.get(`/bookedService/${user?.email}`);
       setBookedServices(data);
     } catch (error) {
       console.error("Error fetching booked services:", error);

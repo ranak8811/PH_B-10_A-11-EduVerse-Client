@@ -1,15 +1,42 @@
-import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 // import { format } from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios";
+// import axios from "axios";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const ServiceDetails = () => {
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth(); // Current user info
-  const course = useLoaderData(); // Service data loaded via route loader
+  // const course = useLoaderData(); // Service data loaded via route loader
+
+  const [course, setCourse] = useState([]);
+  const { id } = useParams();
+  //----------------------------------------------------------------
+  // Fetch services details from db
+  const fetchMyServices = async () => {
+    try {
+      // const { data } = await axios.get(
+      //   `${import.meta.env.VITE_API_URL}/bookedService/${user?.email}`
+      // );
+      const { data } = await axiosSecure.get(`/allServices/${id}`);
+      setCourse(data);
+    } catch (error) {
+      console.error("Error fetching service details:", error);
+      toast.error("Failed to fetch service details. Please try again.");
+    }
+  };
+
+  // Trigger fetch on component mount
+  useEffect(() => {
+    if (user?.email) fetchMyServices();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+  //----------------------------------------------------------------
+
   const {
     _id,
     imageUrl,
@@ -49,10 +76,11 @@ const ServiceDetails = () => {
     console.table(purchaseData);
 
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/bookings`,
-        purchaseData
-      );
+      // const { data } = await axios.post(
+      //   `${import.meta.env.VITE_API_URL}/bookings`,
+      //   purchaseData
+      // );
+      const { data } = await axiosSecure.post(`/bookings`, purchaseData);
       console.log(data);
       // Show toast notification
       toast.success("Service booked successfully!");

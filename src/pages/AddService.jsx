@@ -1,9 +1,11 @@
 import { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const AddService = () => {
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth(); // Extract user information from Firebase
   const [formData, setFormData] = useState({
     imageUrl: "",
@@ -68,10 +70,11 @@ const AddService = () => {
 
     try {
       // Post the object using axios (dummy API for now)
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/services`,
-        serviceObject
-      );
+      // await axios.post(
+      //   `${import.meta.env.VITE_API_URL}/services`,
+      //   serviceObject
+      // );
+      await axiosSecure.post(`/services`, serviceObject);
       setSuccessMessage("Service added successfully!");
       setFormData({
         imageUrl: "",
