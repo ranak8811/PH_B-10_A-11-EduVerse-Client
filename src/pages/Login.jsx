@@ -3,8 +3,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import useTitle from "../../public/PageTitle/title";
 
 const Login = () => {
+  useTitle("Login");
   const { loginUsingGoogle, setUser, loginRegisteredUser } =
     useContext(AuthContext);
   const location = useLocation();
@@ -41,13 +43,13 @@ const Login = () => {
       //--------------------------------database part starts
       // console.log("User created at Firebase: ", result.user);
 
-      const createdAt = result?.user?.metadata?.creationTime;
+      // const createdAt = result?.user?.metadata?.creationTime;
 
-      const newUser = {
-        name: result.user.displayName,
-        email: result.user.email,
-        createdAt: createdAt,
-      };
+      // const newUser = {
+      //   name: result.user.displayName,
+      //   email: result.user.email,
+      //   createdAt: createdAt,
+      // };
 
       // await fetch("https://movie-server-ruby.vercel.app/users", {
       //   method: "PUT",

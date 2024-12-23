@@ -2,8 +2,10 @@ import axios from "axios";
 import Heading from "../components/Heading";
 import { useEffect, useState } from "react";
 import ServiceCard from "../components/ServiceCard";
+import useTitle from "../../public/PageTitle/title";
 
 const AllServices = () => {
+  useTitle("All Services");
   const [allServices, setAllServices] = useState([]);
 
   const fetchPopularServices = async () => {

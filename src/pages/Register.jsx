@@ -4,8 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { AuthContext } from "../providers/AuthProvider";
+import useTitle from "../../public/PageTitle/title";
 
 const Register = () => {
+  useTitle("Register");
   const { registerNewUser, setUser, updateUserProfile, loginUsingGoogle } =
     useContext(AuthContext);
   const navigate = useNavigate();

@@ -4,8 +4,10 @@ import Heading from "../components/Heading";
 import axios from "axios";
 import ServiceCard from "../components/ServiceCard";
 import { Link } from "react-router-dom";
+import useTitle from "../../public/PageTitle/title";
 
 const Home = () => {
+  useTitle("Home");
   const [popularServices, setPopularServices] = useState([]);
 
   const fetchPopularServices = async () => {

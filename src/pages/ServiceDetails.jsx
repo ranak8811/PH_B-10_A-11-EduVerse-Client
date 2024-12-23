@@ -7,8 +7,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 // import axios from "axios";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import useTitle from "../../public/PageTitle/title";
 
 const ServiceDetails = () => {
+  useTitle("Service Details");
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth(); // Current user info
   // const course = useLoaderData(); // Service data loaded via route loader

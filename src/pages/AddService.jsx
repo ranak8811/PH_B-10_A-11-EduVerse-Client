@@ -3,8 +3,10 @@ import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import useTitle from "../../public/PageTitle/title";
 
 const AddService = () => {
+  useTitle("Add Service");
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth(); // Extract user information from Firebase
   const [formData, setFormData] = useState({

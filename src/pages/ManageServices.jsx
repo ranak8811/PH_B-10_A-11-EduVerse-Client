@@ -6,8 +6,10 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import useTitle from "../../public/PageTitle/title";
 
 const ManageServices = () => {
+  useTitle("Manage Services");
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [myServices, setMyServices] = useState([]);

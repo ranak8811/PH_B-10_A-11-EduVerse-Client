@@ -4,8 +4,10 @@ import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 import { format } from "date-fns";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import useTitle from "../../public/PageTitle/title";
 
 const ServiceToDo = () => {
+  useTitle("Service to do");
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [services, setServices] = useState([]);

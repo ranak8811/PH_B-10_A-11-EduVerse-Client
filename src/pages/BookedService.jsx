@@ -4,8 +4,10 @@ import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 import { format } from "date-fns";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import useTitle from "../../public/PageTitle/title";
 
 const BookedService = () => {
+  useTitle("Booked Services");
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [bookedServices, setBookedServices] = useState([]);

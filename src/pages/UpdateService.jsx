@@ -4,8 +4,10 @@ import toast from "react-hot-toast";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import useTitle from "../../public/PageTitle/title";
 
 const UpdateService = () => {
+  useTitle("Update Service");
   const axiosSecure = useAxiosSecure();
   const { id } = useParams();
   const course = useLoaderData();
