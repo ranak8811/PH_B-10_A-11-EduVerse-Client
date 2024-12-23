@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import "../styles/style.css";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
+import logo from "../assets/education.png";
 
 const Navbar = () => {
   const { user, logOutUser, darkMode, setDarkMode } = useContext(AuthContext);
@@ -87,8 +88,9 @@ const Navbar = () => {
   return (
     <div className="navbar bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 shadow-lg">
       <div className="navbar-start">
-        <Link to="/" className="text-2xl font-bold text-red-500">
-          EduVerse
+        <Link to="/" className="flex gap-2 items-center">
+          <img className="w-auto h-7" src={logo} alt="" />
+          <span className="text-2xl font-bold text-red-500">EduVerse</span>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">{links}</div>
