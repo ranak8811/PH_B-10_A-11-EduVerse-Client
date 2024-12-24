@@ -45,22 +45,33 @@ const ManageServices = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        fetch(`${import.meta.env.VITE_API_URL}/service/${id}`, {
-          method: "DELETE",
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.deletedCount) {
-              Swal.fire({
-                title: "Deleted!",
-                text: "Your service has been deleted.",
-                icon: "success",
-              });
-            }
-            fetchMyServices();
+        try {
+          const { data } = await axiosSecure.delete(`/service/${id}`);
+
+          if (data.deletedCount) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your service has been deleted.",
+              icon: "success",
+            });
+            fetchMyServices(); // Refresh the list of services
+          } else {
+            Swal.fire({
+              title: "Error",
+              text: "Failed to delete the service. Please try again.",
+              icon: "error",
+            });
+          }
+        } catch (error) {
+          console.error("Error deleting service:", error);
+          Swal.fire({
+            title: "Error",
+            text: "An unexpected error occurred. Please try again later.",
+            icon: "error",
           });
+        }
       }
     });
     //----------------------------------------------------------------

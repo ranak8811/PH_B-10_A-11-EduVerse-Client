@@ -4,6 +4,7 @@ import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useTitle from "../../public/PageTitle/title";
+import { useNavigate } from "react-router-dom";
 
 const AddService = () => {
   useTitle("Add Service");
@@ -17,7 +18,7 @@ const AddService = () => {
     description: "",
   });
   const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   // Validation for form fields
   const validateFields = () => {
@@ -57,7 +58,6 @@ const AddService = () => {
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      setSuccessMessage("");
       return;
     }
 
@@ -77,7 +77,6 @@ const AddService = () => {
       //   serviceObject
       // );
       await axiosSecure.post(`/services`, serviceObject);
-      setSuccessMessage("Service added successfully!");
       setFormData({
         imageUrl: "",
         name: "",
@@ -86,10 +85,11 @@ const AddService = () => {
         description: "",
       });
       setErrors({});
-      toast.success(successMessage);
+      toast.success("Service added successfully!");
+      navigate("/manageServices");
     } catch (error) {
       console.error("Error adding service:", error);
-      setSuccessMessage("Failed to add service. Please try again.");
+      toast.error("Failed to add service. Please try again.");
     }
   };
 

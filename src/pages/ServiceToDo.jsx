@@ -11,7 +11,7 @@ const ServiceToDo = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [services, setServices] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   // Fetch user's booked services
   const fetchMyServices = async () => {
     try {
@@ -23,6 +23,8 @@ const ServiceToDo = () => {
     } catch (error) {
       console.error("Error fetching services:", error);
       toast.error("Failed to fetch booked services. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -62,7 +64,11 @@ const ServiceToDo = () => {
         </p>
 
         {/* If no services */}
-        {services.length === 0 ? (
+        {isLoading ? (
+          <p className="text-center text-gray-600 dark:text-gray-300">
+            Loading services...
+          </p>
+        ) : services.length === 0 ? (
           <p className="text-center text-gray-600 dark:text-gray-300">
             No services found where you are the provider.
           </p>
