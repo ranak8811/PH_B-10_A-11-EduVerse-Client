@@ -15,8 +15,8 @@ const ServiceDetails = () => {
   const { user } = useAuth(); // Current user info
   // const course = useLoaderData(); // Service data loaded via route loader
 
-  const [course, setCourse] = useState([]);
   const { id } = useParams();
+  const [course, setCourse] = useState([]);
   //----------------------------------------------------------------
   // Fetch services details from db
   const fetchMyServices = async () => {

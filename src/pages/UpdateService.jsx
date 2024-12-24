@@ -1,7 +1,6 @@
-// import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useTitle from "../../public/PageTitle/title";
@@ -10,54 +9,90 @@ const UpdateService = () => {
   useTitle("Update Service");
   const axiosSecure = useAxiosSecure();
   const { id } = useParams();
-  const course = useLoaderData();
   const { user } = useAuth();
-  const { imageUrl, name, price, area, description } = course;
-  const [formData, setFormData] = useState({
-    imageUrl: imageUrl,
-    name: name,
-    price: price,
-    area: area,
-    description: description,
-  });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  // const [course, setCourse] = useState({});
+  const [formData, setFormData] = useState({});
 
-  // Validation for form fields
-  const validateFields = () => {
-    let validationErrors = {};
-
-    if (!formData.imageUrl) {
-      validationErrors.imageUrl = "Image URL is required";
-    } else if (!/^https?:\/\/.+\..+/.test(formData.imageUrl)) {
-      validationErrors.imageUrl = "Please enter a valid URL";
+  // Fetch service details from the database
+  const fetchServiceDetails = async () => {
+    try {
+      const { data } = await axiosSecure.get(`/allServices/${id}`);
+      // setCourse(data);
+      setFormData({
+        imageUrl: data.imageUrl || "",
+        name: data.name || "",
+        price: data.price || "",
+        area: data.area || "",
+        description: data.description || "",
+      });
+    } catch (error) {
+      console.error("Error fetching service details:", error);
+      toast.error("Failed to fetch service details. Please try again.");
     }
+  };
 
-    if (!formData.name) {
-      validationErrors.name = "Service name is required";
+  useEffect(() => {
+    fetchServiceDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  // Validation for specific fields
+  const validateField = (name, value) => {
+    switch (name) {
+      case "imageUrl":
+        if (!value) return "Image URL is required";
+        if (!/^https?:\/\/.+\..+/.test(value))
+          return "Please enter a valid URL";
+        break;
+      case "name":
+        if (!value) return "Service name is required";
+        break;
+      case "price":
+        if (!value) return "Price is required";
+        if (isNaN(value)) return "Price must be a number";
+        break;
+      case "area":
+        if (!value) return "Service area is required";
+        break;
+      case "description":
+        if (!value) return "Description is required";
+        break;
+      default:
+        return "";
     }
+    return "";
+  };
 
-    if (!formData.price) {
-      validationErrors.price = "Price is required";
-    } else if (isNaN(formData.price)) {
-      validationErrors.price = "Price must be a number";
-    }
+  // Handle input changes and validate individual fields
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-    if (!formData.area) {
-      validationErrors.area = "Service area is required";
-    }
+    // Validate the specific field being updated
+    const fieldError = validateField(name, value);
 
-    if (!formData.description) {
-      validationErrors.description = "Description is required";
-    }
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
 
-    return validationErrors;
+    setErrors((prev) => ({
+      ...prev,
+      [name]: fieldError,
+    }));
   };
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationErrors = validateFields();
+
+    // Validate all fields before submission
+    const validationErrors = {};
+    Object.keys(formData).forEach((key) => {
+      const error = validateField(key, formData[key]);
+      if (error) validationErrors[key] = error;
+    });
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -71,36 +106,21 @@ const UpdateService = () => {
       providerImage: user.photoURL,
     };
 
-    console.log(serviceObject);
-
     try {
-      // Post the object using axios (dummy API for now)
-      // await axios.put(
-      //   `${import.meta.env.VITE_API_URL}/updateService/${id}`,
-      //   serviceObject
-      // );
       await axiosSecure.put(`/updateService/${id}`, serviceObject);
-      setErrors({});
       toast.success("Your service has been updated successfully");
       navigate("/manageServices");
     } catch (error) {
-      console.error("Error adding service:", error);
-      toast.error("Update service failed", error.message);
+      console.error("Error updating service:", error);
+      toast.error("Update service failed. Please try again.");
     }
-  };
-
-  // Handle input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: "" });
   };
 
   return (
     <div className="min-h-screen p-5 dark:bg-gray-900 bg-gray-100 flex items-center justify-center">
       <div className="w-full max-w-3xl bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
         <h1 className="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-6 text-center">
-          Add a New Service
+          Update Service
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -116,7 +136,7 @@ const UpdateService = () => {
               type="url"
               id="imageUrl"
               name="imageUrl"
-              defaultValue={imageUrl}
+              value={formData.imageUrl}
               onChange={handleChange}
               placeholder="Enter the image URL"
               className="w-full mt-2 p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring focus:ring-red-400"
@@ -138,7 +158,7 @@ const UpdateService = () => {
               type="text"
               id="name"
               name="name"
-              defaultValue={name}
+              value={formData.name}
               onChange={handleChange}
               placeholder="Enter the service name"
               className="w-full mt-2 p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring focus:ring-red-400"
@@ -160,7 +180,7 @@ const UpdateService = () => {
               type="number"
               id="price"
               name="price"
-              defaultValue={price}
+              value={formData.price}
               onChange={handleChange}
               placeholder="Enter the service price"
               className="w-full mt-2 p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring focus:ring-red-400"
@@ -182,7 +202,7 @@ const UpdateService = () => {
               type="text"
               id="area"
               name="area"
-              defaultValue={area}
+              value={formData.area}
               onChange={handleChange}
               placeholder="Enter the service area (e.g., Dhaka)"
               className="w-full mt-2 p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring focus:ring-red-400"
@@ -203,7 +223,7 @@ const UpdateService = () => {
             <textarea
               id="description"
               name="description"
-              defaultValue={description}
+              value={formData.description}
               onChange={handleChange}
               placeholder="Enter the service description"
               rows="4"

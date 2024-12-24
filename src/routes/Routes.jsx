@@ -68,8 +68,8 @@ const router = createBrowserRouter([
             <UpdateService></UpdateService>
           </PrivateRouter>
         ),
-        loader: ({ params }) =>
-          fetch(`${import.meta.env.VITE_API_URL}/allServices/${params.id}`),
+        // loader: ({ params }) =>
+        //   fetch(`${import.meta.env.VITE_API_URL}/allServices/${params.id}`),
       },
       {
         path: "/bookedService",
