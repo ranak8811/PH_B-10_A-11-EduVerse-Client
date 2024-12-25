@@ -94,7 +94,10 @@ const Home = () => {
         <Banner></Banner>
       </header>
 
-      <section>
+      <section
+        className="my-4
+      "
+      >
         <Heading
           title={"Popular Courses"}
           subtitle={

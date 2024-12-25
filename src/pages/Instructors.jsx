@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import loadingLottieData from "../assets/lottie/loading.json";
+import Lottie from "lottie-react";
 
 const Instructors = () => {
   const [instructors, setInstructors] = useState([]);
@@ -17,9 +19,9 @@ const Instructors = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900">
-        <p className="text-xl font-semibold text-gray-700 dark:text-gray-300 animate-pulse">
-          Loading instructors...
-        </p>
+        <div className="w-96 lg:w-full max-w-md">
+          <Lottie animationData={loadingLottieData} loop />
+        </div>
       </div>
     );
   }

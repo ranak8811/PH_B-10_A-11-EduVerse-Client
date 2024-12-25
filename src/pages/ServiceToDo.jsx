@@ -5,6 +5,8 @@ import useAuth from "../hooks/useAuth";
 import { format } from "date-fns";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useTitle from "../../public/PageTitle/title";
+import Lottie from "lottie-react";
+import loadingLottieData from "../assets/lottie/loading.json";
 
 const ServiceToDo = () => {
   useTitle("Service to do");
@@ -61,9 +63,9 @@ const ServiceToDo = () => {
         </p>
 
         {isLoading ? (
-          <p className="text-center text-gray-600 dark:text-gray-300">
-            Loading services...
-          </p>
+          <div className="w-96 mx-auto lg:w-full max-w-md">
+            <Lottie animationData={loadingLottieData} loop />
+          </div>
         ) : services.length === 0 ? (
           <p className="text-center text-gray-600 dark:text-gray-300">
             No services found where you are the provider.

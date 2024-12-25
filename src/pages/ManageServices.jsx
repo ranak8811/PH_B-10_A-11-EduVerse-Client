@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useTitle from "../../public/PageTitle/title";
+import loadingLottieData from "../assets/lottie/loading.json";
+import Lottie from "lottie-react";
 
 const ManageServices = () => {
   useTitle("Manage Services");
@@ -87,9 +89,9 @@ const ManageServices = () => {
         </h1>
 
         {isLoading ? (
-          <p className="text-center text-gray-600 dark:text-gray-300">
-            Loading services...
-          </p>
+          <div className="w-96 mx-auto lg:w-full max-w-md">
+            <Lottie animationData={loadingLottieData} loop />
+          </div>
         ) : myServices.length === 0 ? (
           <p className="text-center text-gray-600 dark:text-gray-300">
             No services found.
