@@ -12,14 +12,13 @@ const UpdateService = () => {
   const { user } = useAuth();
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  // const [course, setCourse] = useState({});
+
   const [formData, setFormData] = useState({});
 
-  // Fetch service details from the database
   const fetchServiceDetails = async () => {
     try {
       const { data } = await axiosSecure.get(`/allServices/${id}`);
-      // setCourse(data);
+
       setFormData({
         imageUrl: data.imageUrl || "",
         name: data.name || "",
@@ -38,7 +37,6 @@ const UpdateService = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  // Validation for specific fields
   const validateField = (name, value) => {
     switch (name) {
       case "imageUrl":
@@ -65,11 +63,9 @@ const UpdateService = () => {
     return "";
   };
 
-  // Handle input changes and validate individual fields
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Validate the specific field being updated
     const fieldError = validateField(name, value);
 
     setFormData((prev) => ({
@@ -83,11 +79,9 @@ const UpdateService = () => {
     }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate all fields before submission
     const validationErrors = {};
     Object.keys(formData).forEach((key) => {
       const error = validateField(key, formData[key]);
@@ -124,7 +118,6 @@ const UpdateService = () => {
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Image URL */}
           <div>
             <label
               htmlFor="imageUrl"
@@ -146,7 +139,6 @@ const UpdateService = () => {
             )}
           </div>
 
-          {/* Service Name */}
           <div>
             <label
               htmlFor="name"
@@ -168,7 +160,6 @@ const UpdateService = () => {
             )}
           </div>
 
-          {/* Price */}
           <div>
             <label
               htmlFor="price"
@@ -190,7 +181,6 @@ const UpdateService = () => {
             )}
           </div>
 
-          {/* Service Area */}
           <div>
             <label
               htmlFor="area"
@@ -212,7 +202,6 @@ const UpdateService = () => {
             )}
           </div>
 
-          {/* Description */}
           <div>
             <label
               htmlFor="description"
@@ -234,7 +223,6 @@ const UpdateService = () => {
             )}
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-red-500 hover:bg-green-500 text-white font-bold py-3 rounded-lg transition duration-300"

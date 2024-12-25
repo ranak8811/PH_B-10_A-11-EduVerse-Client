@@ -6,13 +6,6 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  //   apiKey: "AIzaSyDIvRIFIV3478GifgzQ3aMmCeW6xAqC7AM",
-  //   authDomain: "eduverse-ph-a-11.firebaseapp.com",
-  //   projectId: "eduverse-ph-a-11",
-  //   storageBucket: "eduverse-ph-a-11.firebasestorage.app",
-  //   messagingSenderId: "740144622623",
-  //   appId: "1:740144622623:web:6c2cfb0e0168eb3e9bb92a",
-
   apiKey: import.meta.env.VITE_apiKey,
   authDomain: import.meta.env.VITE_authDomain,
   projectId: import.meta.env.VITE_projectId,

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const AddService = () => {
   useTitle("Add Service");
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth(); // Extract user information from Firebase
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     imageUrl: "",
     name: "",
@@ -20,7 +20,6 @@ const AddService = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  // Validation for form fields
   const validateFields = () => {
     let validationErrors = {};
 
@@ -51,7 +50,6 @@ const AddService = () => {
     return validationErrors;
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateFields();
@@ -93,7 +91,6 @@ const AddService = () => {
     }
   };
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -107,14 +104,7 @@ const AddService = () => {
           Add a New Service
         </h1>
 
-        {/* {successMessage && (
-          <p className="text-green-500 font-semibold text-center mb-4">
-            {successMessage}
-          </p>
-        )} */}
-
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Image URL */}
           <div>
             <label
               htmlFor="imageUrl"
@@ -136,7 +126,6 @@ const AddService = () => {
             )}
           </div>
 
-          {/* Service Name */}
           <div>
             <label
               htmlFor="name"
@@ -158,7 +147,6 @@ const AddService = () => {
             )}
           </div>
 
-          {/* Price */}
           <div>
             <label
               htmlFor="price"
@@ -180,7 +168,6 @@ const AddService = () => {
             )}
           </div>
 
-          {/* Service Area */}
           <div>
             <label
               htmlFor="area"
@@ -202,7 +189,6 @@ const AddService = () => {
             )}
           </div>
 
-          {/* Description */}
           <div>
             <label
               htmlFor="description"
@@ -224,7 +210,6 @@ const AddService = () => {
             )}
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-red-500 hover:bg-green-500 text-white font-bold py-3 rounded-lg transition duration-300"

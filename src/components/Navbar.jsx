@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import "../styles/style.css";
@@ -10,8 +10,17 @@ const Navbar = () => {
 
   const handleThemeToggle = () => {
     setDarkMode(!darkMode);
+    localStorage.setItem("darkMode", !darkMode);
     document.documentElement.classList.toggle("dark", !darkMode);
   };
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("darkMode");
+    if (savedTheme) {
+      setDarkMode(JSON.parse(savedTheme));
+      document.documentElement.classList.toggle("dark", JSON.parse(savedTheme));
+    }
+  }, [setDarkMode]);
 
   const links = (
     <ul className="lg:flex items-center gap-5 text-gray-800 dark:text-gray-200">
@@ -142,7 +151,7 @@ const Navbar = () => {
           {darkMode ? <MdLightMode size={20} /> : <MdDarkMode size={20} />}
         </button>
       </div>
-      {/* Mobile Dropdown */}
+
       <div className="navbar-center lg:hidden">
         <div className="dropdown relative">
           <button className="p-2 bg-gray-200 dark:bg-gray-700 rounded-lg focus:outline-none">

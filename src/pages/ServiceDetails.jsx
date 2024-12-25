@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
-// import { format } from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 // import axios from "axios";
@@ -12,13 +11,12 @@ import useTitle from "../../public/PageTitle/title";
 const ServiceDetails = () => {
   useTitle("Service Details");
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth(); // Current user info
-  // const course = useLoaderData(); // Service data loaded via route loader
+  const { user } = useAuth();
 
   const { id } = useParams();
   const [course, setCourse] = useState([]);
   //----------------------------------------------------------------
-  // Fetch services details from db
+
   const fetchMyServices = async () => {
     try {
       // const { data } = await axios.get(
@@ -32,7 +30,6 @@ const ServiceDetails = () => {
     }
   };
 
-  // Trigger fetch on component mount
   useEffect(() => {
     if (user?.email) fetchMyServices();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,7 +50,6 @@ const ServiceDetails = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [specialInstruction, setSpecialInstruction] = useState("");
-  //   const [serviceDate, setServiceDate] = useState("");
   const [serviceDate, setServiceDate] = useState(new Date());
 
   const handleBookNow = () => {
@@ -84,29 +80,24 @@ const ServiceDetails = () => {
       // );
       const { data } = await axiosSecure.post(`/bookings`, purchaseData);
       console.log(data);
-      // Show toast notification
+
       toast.success("Service booked successfully!");
-      // Reset modal fields
+
       setSpecialInstruction("");
       setServiceDate("");
       setIsModalOpen(false);
     } catch (err) {
       toast.error(err.message);
-      //   toast.error(err?.response?.data);
+      // toast.error(err?.response?.data);
     }
   };
 
-  //   console.log("Service taking date: ", serviceDate);
-
   return (
     <div className="min-h-screen p-5 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      {/* Service Details Container */}
       <div className="max-w-5xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-        {/* Header Image */}
         <img src={imageUrl} alt={name} className="w-full h-64 object-cover" />
 
         <div className="p-6 md:p-10">
-          {/* Single Service Section */}
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               {name}
@@ -123,13 +114,13 @@ const ServiceDetails = () => {
             </div>
           </div>
 
-          {/* Service Provider Information */}
           <div className="border-t border-gray-300 dark:border-gray-600 pt-6 mt-6">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               Service Provider Information
             </h2>
             <div className="flex items-center">
               <img
+                referrerPolicy="no-referrer"
                 src={providerImage}
                 alt={providerName}
                 className="w-16 h-16 rounded-full border-2 border-green-500"
@@ -145,7 +136,6 @@ const ServiceDetails = () => {
             </div>
           </div>
 
-          {/* Book Now Button */}
           <button
             onClick={handleBookNow}
             className="mt-8 w-full bg-red-500 hover:bg-green-500 text-white font-bold py-3 rounded-lg transition duration-300"
@@ -154,7 +144,7 @@ const ServiceDetails = () => {
           </button>
         </div>
       </div>
-      {/* Modal */}
+
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white dark:bg-gray-800 w-full max-w-lg p-6 rounded-lg shadow-lg">
@@ -162,7 +152,6 @@ const ServiceDetails = () => {
               Booking Details
             </h2>
 
-            {/* Service Info */}
             <div className="space-y-3">
               <p className="text-sm text-gray-600 dark:text-gray-300">
                 <strong>Service ID:</strong> {_id}
@@ -181,7 +170,6 @@ const ServiceDetails = () => {
               </p>
             </div>
 
-            {/* Current User Info */}
             <div className="space-y-3 mt-4">
               <p className="text-sm text-gray-600 dark:text-gray-300">
                 <strong>Current User:</strong> {user.displayName}
@@ -191,9 +179,7 @@ const ServiceDetails = () => {
               </p>
             </div>
 
-            {/* Booking Inputs */}
             <div className="mt-4 space-y-4">
-              {/* Service Date */}
               <div>
                 <label
                   htmlFor="serviceDate"
@@ -201,14 +187,7 @@ const ServiceDetails = () => {
                 >
                   Service Date
                 </label>
-                {/* <input
-                  type="date"
-                  id="serviceDate"
-                  value={serviceDate}
-                  onChange={(e) => setServiceDate(e.target.value)}
-                  className="w-full mt-2 p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring focus:ring-red-400"
-                /> */}
-                {/* Date Picker Input Field */}
+
                 <DatePicker
                   className="w-full text-black mt-2 p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring focus:ring-red-400"
                   selected={serviceDate}
@@ -216,7 +195,6 @@ const ServiceDetails = () => {
                 />
               </div>
 
-              {/* Special Instruction */}
               <div>
                 <label
                   htmlFor="specialInstruction"
@@ -235,7 +213,6 @@ const ServiceDetails = () => {
               </div>
             </div>
 
-            {/* Modal Actions */}
             <div className="mt-6 flex justify-end space-x-4">
               <button
                 onClick={() => setIsModalOpen(false)}

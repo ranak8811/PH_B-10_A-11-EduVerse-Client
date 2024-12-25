@@ -48,8 +48,6 @@ const Home = () => {
   useEffect(() => {
     fetchPopularServices();
 
-    // Initialize review data
-
     setReviews([
       {
         stars: 5,
@@ -92,12 +90,10 @@ const Home = () => {
 
   return (
     <div>
-      {/* Banner */}
       <header>
         <Banner></Banner>
       </header>
 
-      {/* Popular Courses Section */}
       <section>
         <Heading
           title={"Popular Courses"}
@@ -122,7 +118,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Trusted By Section */}
       <section className="py-12 bg-gray-100 dark:bg-gray-900">
         <Heading
           title={"Trusted By"}
@@ -164,7 +159,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
       <section className="py-12 bg-gray-200 dark:bg-gray-800">
         <Heading
           title={"Frequently Asked Questions"}
@@ -192,83 +186,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// import { useEffect, useState } from "react";
-// import Banner from "../components/Banner";
-// import Heading from "../components/Heading";
-// import axios from "axios";
-// import ServiceCard from "../components/ServiceCard";
-// import { Link } from "react-router-dom";
-// import useTitle from "../../public/PageTitle/title";
-
-// const Home = () => {
-//   useTitle("Home");
-//   const [popularServices, setPopularServices] = useState([]);
-
-//   const fetchPopularServices = async () => {
-//     const { data } = await axios.get(
-//       `${import.meta.env.VITE_API_URL}/popularServices`
-//     );
-//     setPopularServices(data);
-//   };
-
-//   useEffect(() => {
-//     fetchPopularServices();
-//   }, []);
-
-//   console.log(popularServices);
-//   return (
-//     <div>
-//       <header>
-//         <Banner></Banner>
-//       </header>
-//       <section>
-//         <Heading
-//           title={"Popular Courses"}
-//           subtitle={
-//             "Dive deep into subjects taught by renowned professionals who bring real-world experience and insights to the classroom. Gain valuable skills and knowledge from those who have achieved success in their respective fields"
-//           }
-//         ></Heading>
-
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//           {popularServices.map((course) => (
-//             <ServiceCard key={course._id} course={course}></ServiceCard>
-//           ))}
-//         </div>
-
-//         <div className="text-center">
-//           <Link
-//             to={"/allServices"}
-//             className="btn mt-8 bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 dark:from-green-500 dark:to-green-700 dark:hover:from-green-600 dark:hover:to-green-800 text-white font-bold px-6 py-3 rounded-lg"
-//           >
-//             Show All
-//           </Link>
-//         </div>
-//       </section>
-
-//       <section>
-//         <Heading
-//           title={"Trusted By"}
-//           subtitle={"write a meaning full text here"}
-//         ></Heading>
-//         here user review card will show you, it will be 3 column layout but row
-//         layout would be random and in the card first it will show number of
-//         stars out of 5 stars then their review text and lastly their name. an
-//         lastly you have to make the whole section animated like every random
-//         rows cards will go up slowly and it will vanish as it reach the section
-//         top again from the cards will appear. you hve to make at least 6 review
-//         cards object at first then do the section. finally when user will hover
-//         any card that column card will stop going upwards but sidewards card
-//         will go upwards. Do this part using framer motion npm package
-//       </section>
-
-//       <section>
-//         <Heading title={"Frequently Asked Questions"}>
-//           here you have to make Accordion for 5 frequently asked questions for this also you have to make a object at first then desing this part
-//         </Heading>
-//       </section>
-//     </div>
-//   );
-// };
-
-// export default Home;

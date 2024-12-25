@@ -12,7 +12,7 @@ const ServiceToDo = () => {
   const { user } = useAuth();
   const [services, setServices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // Fetch user's booked services
+
   const fetchMyServices = async () => {
     try {
       // const { data } = await axios.get(
@@ -28,7 +28,6 @@ const ServiceToDo = () => {
     }
   };
 
-  // Update service status
   const handleStateChange = async (id, status) => {
     try {
       // await axios.patch(`${import.meta.env.VITE_API_URL}/status-update/${id}`, {
@@ -38,14 +37,13 @@ const ServiceToDo = () => {
         status,
       });
       toast.success("Status updated successfully!");
-      fetchMyServices(); // Refresh the UI
+      fetchMyServices();
     } catch (err) {
       console.error(err);
       toast.error("Failed to update status. Please try again.");
     }
   };
 
-  // Trigger fetch on component mount
   useEffect(() => {
     if (user?.email) fetchMyServices();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,12 +56,10 @@ const ServiceToDo = () => {
           Services To Do
         </h1>
 
-        {/* Show total services */}
         <p className="text-center text-lg font-semibold text-green-500 mb-4">
           Total Services: {services.length}
         </p>
 
-        {/* If no services */}
         {isLoading ? (
           <p className="text-center text-gray-600 dark:text-gray-300">
             Loading services...
@@ -133,7 +129,6 @@ const ServiceToDo = () => {
                       {service.specialInstruction || "No instructions provided"}
                     </td>
                     <td className="px-4 py-2">
-                      {/* Dropdown for status change */}
                       <select
                         value={service.serviceStatus}
                         onChange={(e) =>

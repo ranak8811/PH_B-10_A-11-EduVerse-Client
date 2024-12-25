@@ -15,7 +15,7 @@ const ManageServices = () => {
   const [myServices, setMyServices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  // Fetch user's services
+
   const fetchMyServices = async () => {
     try {
       // const { data } = await axios.get(
@@ -32,9 +32,6 @@ const ManageServices = () => {
     }
   };
 
-  // console.log(typeof myServices);
-
-  // Delete a service
   const handleDelete = async (id) => {
     //----------------------------------------------------------------
     Swal.fire({
@@ -56,7 +53,7 @@ const ManageServices = () => {
               text: "Your service has been deleted.",
               icon: "success",
             });
-            fetchMyServices(); // Refresh the list of services
+            fetchMyServices();
           } else {
             Swal.fire({
               title: "Error",
@@ -77,7 +74,6 @@ const ManageServices = () => {
     //----------------------------------------------------------------
   };
 
-  // Trigger fetch on component mount
   useEffect(() => {
     if (user?.email) fetchMyServices();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,7 +86,6 @@ const ManageServices = () => {
           Manage Your Services
         </h1>
 
-        {/* Loading State */}
         {isLoading ? (
           <p className="text-center text-gray-600 dark:text-gray-300">
             Loading services...
@@ -142,7 +137,6 @@ const ManageServices = () => {
                         : service.description}
                     </td>
                     <td className="px-4 py-2 flex justify-center space-x-4">
-                      {/* Edit Button */}
                       <button
                         onClick={() =>
                           navigate(`/updateService/${service._id}`)
@@ -152,7 +146,6 @@ const ManageServices = () => {
                         <FaEdit size={18} />
                       </button>
 
-                      {/* Delete Button */}
                       <button
                         onClick={() => handleDelete(service._id)}
                         className="text-red-500 hover:text-red-700"

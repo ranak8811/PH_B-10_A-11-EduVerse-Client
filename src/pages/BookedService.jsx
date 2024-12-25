@@ -12,7 +12,7 @@ const BookedService = () => {
   const { user } = useAuth();
   const [bookedServices, setBookedServices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // Fetch user's booked services
+
   const fetchMyServices = async () => {
     try {
       // const { data } = await axios.get(
@@ -28,7 +28,6 @@ const BookedService = () => {
     }
   };
 
-  // Trigger fetch on component mount
   useEffect(() => {
     if (user?.email) fetchMyServices();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,12 +40,10 @@ const BookedService = () => {
           Your Booked Services
         </h1>
 
-        {/* Show total services booked */}
         <p className="text-center text-lg font-semibold text-green-500 mb-4">
           Total Booked Services: {bookedServices.length}
         </p>
 
-        {/* If no services are found */}
         {isLoading ? (
           <p className="text-center text-gray-600 dark:text-gray-300">
             Loading services...
@@ -128,50 +125,3 @@ const BookedService = () => {
 };
 
 export default BookedService;
-
-// import axios from "axios";
-// import { useEffect, useState } from "react";
-// import toast from "react-hot-toast";
-// import useAuth from "../hooks/useAuth";
-// import { format } from "date-fns";
-
-// const BookedService = () => {
-//   const { user } = useAuth();
-//   const [bookedServices, setBookedServices] = useState([]);
-
-//   // Fetch user's services
-//   const fetchMyServices = async () => {
-//     try {
-//       const { data } = await axios.get(
-//         `${import.meta.env.VITE_API_URL}/bookedService/${user?.email}`
-//       );
-//       setBookedServices(data);
-//     } catch (error) {
-//       console.error("Error fetching services:", error);
-//       toast.error("Failed to fetch services. Please try again.");
-//     }
-//   };
-
-//   // Trigger fetch on component mount
-//   useEffect(() => {
-//     if (user?.email) fetchMyServices();
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, [user]);
-
-//   return (
-//     <div>
-//       {bookedServices.map((service) => (
-//         <div key={service._id}>
-//           Name: {service.serviceName}
-//           Service Taking Date: {format(new Date(service.serviceDate), "P")}
-//           Price: {service.price}
-//           Provider: {service.providerEmail}
-//           Status: {service.serviceStatus}
-//           Special Instruction: {service.specialInstruction}
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default BookedService;
