@@ -82,6 +82,17 @@ const Navbar = () => {
           </ul>
         </li>
       )}
+
+      <li>
+        <NavLink
+          to="/instructor"
+          className={({ isActive }) =>
+            isActive ? "custom-link active" : "custom-link"
+          }
+        >
+          Instructor
+        </NavLink>
+      </li>
     </ul>
   );
 

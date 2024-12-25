@@ -12,6 +12,7 @@ import ManageServices from "../pages/ManageServices";
 import UpdateService from "../pages/UpdateService";
 import BookedService from "../pages/BookedService";
 import ServiceToDo from "../pages/ServiceToDo";
+import Instructors from "../pages/Instructors";
 
 const router = createBrowserRouter([
   {
@@ -87,6 +88,10 @@ const router = createBrowserRouter([
             <ServiceToDo></ServiceToDo>
           </PrivateRouter>
         ),
+      },
+      {
+        path: "/instructor",
+        element: <Instructors></Instructors>,
       },
     ],
   },
