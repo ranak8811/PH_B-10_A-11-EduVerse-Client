@@ -1,17 +1,21 @@
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import useTitle from "../../public/PageTitle/title";
 import Lottie from "lottie-react";
 import loginLottieData from "../assets/lottie/login.json";
+import { HiEyeOff } from "react-icons/hi";
+import { FaEye } from "react-icons/fa";
 
 const Login = () => {
   useTitle("Login");
   const { loginUsingGoogle, setUser, loginRegisteredUser } =
     useContext(AuthContext);
   const location = useLocation();
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -42,25 +46,25 @@ const Login = () => {
       const result = await loginUsingGoogle();
       setUser(result.user);
 
-      //--------------------------------database part starts
-      // console.log("User created at Firebase: ", result.user);
+      // --------------------------------database part starts
+      console.log("User created at Firebase: ", result.user);
 
-      // const createdAt = result?.user?.metadata?.creationTime;
+      const createdAt = result?.user?.metadata?.creationTime;
 
-      // const newUser = {
-      //   name: result.user.displayName,
-      //   email: result.user.email,
-      //   createdAt: createdAt,
-      // };
+      const newUser = {
+        name: result.user.displayName,
+        email: result.user.email,
+        createdAt: createdAt,
+      };
 
-      // await fetch(`${import.meta.env.VITE_API_URL}/users`, {
-      //   method: "PUT",
-      //   headers: {
-      //     "content-type": "application/json",
-      //   },
-      //   body: JSON.stringify(newUser),
-      // });
-      //--------------------------------database part ends
+      await fetch(`${import.meta.env.VITE_API_URL}/users`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+      // --------------------------------database part ends
 
       toast.success(`${result.user.displayName} logged in with Google`);
       navigate(location?.state ? location.state : "/");
@@ -107,7 +111,7 @@ const Login = () => {
               )}
             </div>
 
-            <div>
+            <div className="relative">
               <label
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300"
@@ -115,7 +119,8 @@ const Login = () => {
                 Password
               </label>
               <input
-                type="password"
+                // type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 {...register("password", { required: "Password is required" })}
                 className={`input input-bordered w-full bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 ${
@@ -123,6 +128,12 @@ const Login = () => {
                 }`}
                 placeholder="Enter your password"
               />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute top-2/3 transform -translate-y-1/2 right-3 cursor-pointer text-gray-600"
+              >
+                {showPassword ? <HiEyeOff size={20} /> : <FaEye size={20} />}
+              </span>
               {errors.password && (
                 <p className="text-red-500 text-sm mt-1">
                   {errors.password.message}

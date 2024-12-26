@@ -2,17 +2,20 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-// import Swal from "sweetalert2";
 import { AuthContext } from "../providers/AuthProvider";
 import useTitle from "../../public/PageTitle/title";
 import Lottie from "lottie-react";
 import registerLottieData from "../assets/lottie/register.json";
+import Swal from "sweetalert2";
+import { HiEyeOff } from "react-icons/hi";
+import { FaEye } from "react-icons/fa";
 
 const Register = () => {
   useTitle("Register");
   const { registerNewUser, setUser, updateUserProfile, loginUsingGoogle } =
     useContext(AuthContext);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -76,21 +79,21 @@ const Register = () => {
 
         const newUser = { name, email, createdAt };
         // add new user to the database
-        // fetch(`${import.meta.env.VITE_API_URL}/users`, {
-        //   method: "POST",
-        //   headers: {
-        //     "content-type": "application/json",
-        //   },
-        //   body: JSON.stringify(newUser),
-        // })
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     // console.log("User created to db: ", data);
+        fetch(`${import.meta.env.VITE_API_URL}/users`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            // console.log("User created to db: ", data);
 
-        //     if (data.insertedId) {
-        //       Swal.fire("User created to database successfully");
-        //     }
-        //   });
+            if (data.insertedId) {
+              Swal.fire("User created to database successfully");
+            }
+          });
         //--------------------------------databse part ends
 
         updateUserProfile({ displayName: name, photoURL: photoURL })
@@ -129,22 +132,23 @@ const Register = () => {
           createdAt: createdAt,
         };
 
-        // fetch(`${import.meta.env.VITE_API_URL}/users`, {
-        //   method: "PUT",
-        //   headers: {
-        //     "content-type": "application/json",
-        //   },
-        //   body: JSON.stringify(newUser),
-        // })
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     if (data.insertedId) {
-        //       Swal.fire("User created in the database successfully");
-        //     }
-        //   })
-        //   .catch((error) => {
-        //     console.error("Error creating user in the database:", error);
-        //   });
+        fetch(`${import.meta.env.VITE_API_URL}/users`, {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.insertedId) {
+              Swal.fire("User created in the database successfully");
+            }
+          })
+          .catch((error) => {
+            console.error("Error creating user in the database:", error);
+            toast.error(error.message);
+          });
         //--------------------------------database part ends
 
         toast.success(`${result.user.displayName} is logged in with Google`);
@@ -215,7 +219,7 @@ const Register = () => {
               )}
             </div>
 
-            <div>
+            <div className="relative">
               <label
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-300"
@@ -223,7 +227,8 @@ const Register = () => {
                 Password
               </label>
               <input
-                type="password"
+                // type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
                 value={formData.password}
@@ -233,6 +238,12 @@ const Register = () => {
                 }`}
                 placeholder="Enter your password"
               />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute top-2/3 transform -translate-y-1/2 right-3 cursor-pointer text-gray-600"
+              >
+                {showPassword ? <HiEyeOff size={20} /> : <FaEye size={20} />}
+              </span>
               {errors.password && (
                 <p className="text-red-500 text-sm mt-1">{errors.password}</p>
               )}
