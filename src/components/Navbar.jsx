@@ -146,13 +146,13 @@ const Navbar = () => {
         )}
         <button
           onClick={handleThemeToggle}
-          className="p-2 bg-gray-200 dark:bg-gray-700 rounded-full"
+          className="p-2 ml-2 md:ml-0 bg-gray-200 dark:bg-gray-700 rounded-full"
         >
           {darkMode ? <MdLightMode size={20} /> : <MdDarkMode size={20} />}
         </button>
       </div>
 
-      <div className="navbar-center lg:hidden">
+      <div className="navbar-center ml-2 lg:hidden">
         <div className="dropdown relative">
           <button className="p-2 bg-gray-200 dark:bg-gray-700 rounded-lg focus:outline-none">
             <svg

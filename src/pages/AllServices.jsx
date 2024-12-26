@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import ServiceCard from "../components/ServiceCard";
 import useTitle from "../../public/PageTitle/title";
 import { useLoaderData } from "react-router-dom";
-
+import toast from "react-hot-toast";
+import Lottie from "lottie-react";
+import loadingLottieData from "../assets/lottie/loading.json";
 const AllServices = () => {
   useTitle("All Services");
   const [allServices, setAllServices] = useState([]);
@@ -13,16 +15,24 @@ const AllServices = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(2);
   const numberOfPages = Math.ceil(count / itemsPerPage);
+  const [isLoading, setIsLoading] = useState(true);
 
   const pages = [...Array(numberOfPages).keys()];
 
   const fetchPopularServices = async () => {
-    const { data } = await axios.get(
-      `${
-        import.meta.env.VITE_API_URL
-      }/allServices?searchParams=${search}&page=${currentPage}&size=${itemsPerPage}`
-    );
-    setAllServices(data);
+    try {
+      const { data } = await axios.get(
+        `${
+          import.meta.env.VITE_API_URL
+        }/allServices?searchParams=${search}&page=${currentPage}&size=${itemsPerPage}`
+      );
+      setAllServices(data);
+    } catch (error) {
+      console.error("Error fetching services:", error);
+      toast.error("Failed to fetch services. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -48,7 +58,7 @@ const AllServices = () => {
   };
 
   return (
-    <div>
+    <div className="px-2 lg:px-0">
       <header>
         <Heading
           title={"All Courses"}
@@ -69,11 +79,17 @@ const AllServices = () => {
         />
       </div>
 
-      <section className="grid grid-cols-1 gap-10">
-        {allServices.map((course) => (
-          <ServiceCard key={course._id} course={course}></ServiceCard>
-        ))}
-      </section>
+      {isLoading ? (
+        <div className="w-96 mx-auto lg:w-full max-w-md">
+          <Lottie animationData={loadingLottieData} loop />
+        </div>
+      ) : (
+        <section className="grid grid-cols-1 gap-10">
+          {allServices.map((course) => (
+            <ServiceCard key={course._id} course={course}></ServiceCard>
+          ))}
+        </section>
+      )}
 
       <div className="text-center my-8 space-y-4">
         <p className="text-gray-600 dark:text-gray-300 font-medium">
