@@ -106,4 +106,4 @@ Feel free to contribute to this repository by submitting issues or creating pull
 
 ---
 
-Server Side code: https://github.com/programming-hero-web-course2/b10a11-server-side-ranak8811
+Server Side code: https://github.com/ranak8811/PH_B-10_A-11-EduVerse-Server
