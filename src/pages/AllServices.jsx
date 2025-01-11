@@ -68,89 +68,91 @@ const AllServices = () => {
         ></Heading>
       </header>
 
-      <div className="max-w-[600px] mx-auto mb-4">
-        <input
-          onChange={(e) => setSearch(e.target.value)}
-          type="text"
-          name="search"
-          placeholder="Search courses using title..."
-          className="input input-bordered w-full"
-          required
-        />
-      </div>
-
-      {isLoading ? (
-        <div className="w-96 mx-auto lg:w-full max-w-md">
-          <Lottie animationData={loadingLottieData} loop />
+      <section className="container mx-auto">
+        <div className="max-w-[600px] mx-auto mb-4">
+          <input
+            onChange={(e) => setSearch(e.target.value)}
+            type="text"
+            name="search"
+            placeholder="Search courses using title..."
+            className="input input-bordered w-full"
+            required
+          />
         </div>
-      ) : (
-        <section className="grid grid-cols-1 gap-10">
-          {allServices.map((course) => (
-            <ServiceCard key={course._id} course={course}></ServiceCard>
-          ))}
-        </section>
-      )}
 
-      <div className="text-center my-8 space-y-4">
-        <p className="text-gray-600 dark:text-gray-300 font-medium">
-          Current Page: <span className="font-bold">{currentPage + 1}</span>
-        </p>
+        {isLoading ? (
+          <div className="w-96 mx-auto lg:w-full max-w-md">
+            <Lottie animationData={loadingLottieData} loop />
+          </div>
+        ) : (
+          <section className="grid grid-cols-1 md:grid-cols-2 md:px-4 lg:px-0 gap-10">
+            {allServices.map((course) => (
+              <ServiceCard key={course._id} course={course}></ServiceCard>
+            ))}
+          </section>
+        )}
 
-        <div className="flex justify-center flex-wrap items-center gap-2">
-          <button
-            onClick={handlePrevPage}
-            className={`btn ${
-              currentPage === 0
-                ? "btn-disabled bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
-                : "bg-green-500 text-white hover:bg-green-600 dark:bg-green-700 dark:hover:bg-green-800"
-            }`}
-          >
-            Prev
-          </button>
-          {pages.map((page) => (
+        <div className="text-center my-8 space-y-4">
+          <p className="text-gray-600 dark:text-gray-300 font-medium">
+            Current Page: <span className="font-bold">{currentPage + 1}</span>
+          </p>
+
+          <div className="flex justify-center flex-wrap items-center gap-2">
             <button
-              key={page}
-              onClick={() => setCurrentPage(page)}
-              className={`px-4 py-2 rounded-lg border-2 ${
-                currentPage === page
-                  ? "bg-green-500 text-white border-green-500"
-                  : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 border-gray-400"
-              } hover:bg-green-400 dark:hover:bg-green-600`}
+              onClick={handlePrevPage}
+              className={`btn ${
+                currentPage === 0
+                  ? "btn-disabled bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
+                  : "bg-green-500 text-white hover:bg-green-600 dark:bg-green-700 dark:hover:bg-green-800"
+              }`}
             >
-              {page + 1}
+              Prev
             </button>
-          ))}
-          <button
-            onClick={handleNextPage}
-            className={`btn ${
-              currentPage === pages.length - 1
-                ? "btn-disabled bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
-                : "bg-green-500 text-white hover:bg-green-600 dark:bg-green-700 dark:hover:bg-green-800"
-            }`}
-          >
-            Next
-          </button>
-        </div>
+            {pages.map((page) => (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={`px-4 py-2 rounded-lg border-2 ${
+                  currentPage === page
+                    ? "bg-green-500 text-white border-green-500"
+                    : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 border-gray-400"
+                } hover:bg-green-400 dark:hover:bg-green-600`}
+              >
+                {page + 1}
+              </button>
+            ))}
+            <button
+              onClick={handleNextPage}
+              className={`btn ${
+                currentPage === pages.length - 1
+                  ? "btn-disabled bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
+                  : "bg-green-500 text-white hover:bg-green-600 dark:bg-green-700 dark:hover:bg-green-800"
+              }`}
+            >
+              Next
+            </button>
+          </div>
 
-        <div>
-          <label
-            htmlFor="itemsPerPage"
-            className="text-gray-600 dark:text-gray-300 font-medium mr-2"
-          >
-            Items per page:
-          </label>
-          <select
-            value={itemsPerPage}
-            onChange={handleItemsPerPage}
-            id="itemsPerPage"
-            className="p-2 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white"
-          >
-            <option value="2">2</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
+          <div>
+            <label
+              htmlFor="itemsPerPage"
+              className="text-gray-600 dark:text-gray-300 font-medium mr-2"
+            >
+              Items per page:
+            </label>
+            <select
+              value={itemsPerPage}
+              onChange={handleItemsPerPage}
+              id="itemsPerPage"
+              className="p-2 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white"
+            >
+              <option value="2">2</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

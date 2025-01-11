@@ -104,20 +104,21 @@ const Home = () => {
             "Dive deep into subjects taught by renowned professionals who bring real-world experience and insights to the classroom."
           }
         ></Heading>
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {popularServices.map((course) => (
+              <ServiceCard key={course._id} course={course}></ServiceCard>
+            ))}
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {popularServices.map((course) => (
-            <ServiceCard key={course._id} course={course}></ServiceCard>
-          ))}
-        </div>
-
-        <div className="text-center">
-          <Link
-            to={"/allServices"}
-            className="btn mt-8 bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 dark:from-green-500 dark:to-green-700 dark:hover:from-green-600 dark:hover:to-green-800 text-white font-bold px-6 py-3 rounded-lg"
-          >
-            Show All
-          </Link>
+          <div className="text-center">
+            <Link
+              to={"/allServices"}
+              className="btn mt-8 bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 dark:from-green-500 dark:to-green-700 dark:hover:from-green-600 dark:hover:to-green-800 text-white font-bold px-6 py-3 rounded-lg"
+            >
+              Show All
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -127,7 +128,7 @@ const Home = () => {
           subtitle={"Hear what our learners have to say about our courses."}
         ></Heading>
 
-        <div className="relative overflow-hidden h-96">
+        <div className="relative overflow-hidden h-96 container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {reviews.map((review, index) => (
               <motion.div
