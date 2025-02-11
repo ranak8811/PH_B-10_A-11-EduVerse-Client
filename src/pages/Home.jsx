@@ -6,6 +6,7 @@ import ServiceCard from "../components/ServiceCard";
 import { Link } from "react-router-dom";
 import useTitle from "../../public/PageTitle/title";
 import { motion } from "framer-motion";
+import Newsletter from "../components/Newsletter";
 
 const Home = () => {
   useTitle("Home");
@@ -184,6 +185,10 @@ const Home = () => {
             </details>
           ))}
         </div>
+      </section>
+
+      <section>
+        <Newsletter></Newsletter>
       </section>
     </div>
   );

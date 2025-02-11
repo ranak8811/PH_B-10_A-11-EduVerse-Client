@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import loadingLottieData from "../assets/lottie/loading.json";
 import Lottie from "lottie-react";
+import useTitle from "../../public/PageTitle/title";
 
 const Instructors = () => {
+  useTitle("Instructors");
   const [instructors, setInstructors] = useState([]);
   const [loading, setLoading] = useState(true);
 
