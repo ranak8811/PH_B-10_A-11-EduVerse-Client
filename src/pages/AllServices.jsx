@@ -7,6 +7,7 @@ import { useLoaderData } from "react-router-dom";
 import toast from "react-hot-toast";
 import Lottie from "lottie-react";
 import loadingLottieData from "../assets/lottie/loading.json";
+import { GoSearch } from "react-icons/go";
 const AllServices = () => {
   useTitle("All Services");
   const [allServices, setAllServices] = useState([]);
@@ -69,15 +70,21 @@ const AllServices = () => {
       </header>
 
       <section className="container mx-auto" id="all-services">
-        <div className="max-w-[600px] mx-auto my-12">
+        <div className="max-w-[600px] mx-auto my-12 relative">
           <input
             onChange={(e) => setSearch(e.target.value)}
             type="text"
             name="search"
             placeholder="Search courses using title..."
-            className="input input-bordered w-full"
+            className="input input-bordered w-full pl-12" // Padding on the input itself
             required
           />
+
+          <span className="absolute top-1/2 transform -translate-y-1/2 left-4 text-xl">
+            {" "}
+            {/* Adjusted left position */}
+            <GoSearch />
+          </span>
         </div>
 
         {isLoading ? (

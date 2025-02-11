@@ -212,7 +212,7 @@ const AddService = () => {
 
           <button
             type="submit"
-            className="w-full bg-red-500 hover:bg-green-500 text-white font-bold py-3 rounded-lg transition duration-300"
+            className="w-full bg-[#f86c6c] hover:bg-green-500 text-white font-bold py-3 rounded-lg transition duration-300"
           >
             Add Service
           </button>

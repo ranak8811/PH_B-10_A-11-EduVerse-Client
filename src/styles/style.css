@@ -17,7 +17,7 @@
   font-weight: bold;
   background-color: #ef4443 !important;
   color: white;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 .dropdown-item {
