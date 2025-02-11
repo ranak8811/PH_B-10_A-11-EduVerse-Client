@@ -68,8 +68,8 @@ const AllServices = () => {
         ></Heading>
       </header>
 
-      <section className="container mx-auto">
-        <div className="max-w-[600px] mx-auto mb-4">
+      <section className="container mx-auto" id="all-services">
+        <div className="max-w-[600px] mx-auto my-12">
           <input
             onChange={(e) => setSearch(e.target.value)}
             type="text"

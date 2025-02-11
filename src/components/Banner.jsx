@@ -74,7 +74,21 @@ const Banner = () => {
         >
           <Link
             to="/allServices"
-            className="bg-gradient-to-r from-red-500 to-green-500 hover:from-green-600 hover:to-red-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
+            className={`
+              border border-red-500 
+              text-red-500 
+              hover:bg-red-500
+              dark:border-green-500
+              dark:hover:bg-green-500
+              dark:text-green-500
+              hover:text-white
+              dark:hover:text-white
+              transition 
+              duration-300
+              rounded-lg 
+              py-3 
+              px-6 
+            `}
           >
             Start Exploring
           </Link>

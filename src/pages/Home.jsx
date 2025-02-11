@@ -91,14 +91,11 @@ const Home = () => {
 
   return (
     <div className="px-2 lg:px-0">
-      <header>
+      <header id="home">
         <Banner></Banner>
       </header>
 
-      <section
-        className="my-4
-      "
-      >
+      <section className="my-4" id="pop-courses">
         <Heading
           title={"Popular Courses"}
           subtitle={
@@ -112,10 +109,22 @@ const Home = () => {
             ))}
           </div>
 
-          <div className="text-center">
+          <div className="text-center mt-8">
             <Link
               to={"/allServices"}
-              className="btn mt-8 bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 dark:from-green-500 dark:to-green-700 dark:hover:from-green-600 dark:hover:to-green-800 text-white font-bold px-6 py-3 rounded-lg"
+              className="border border-red-500 
+              text-red-500 
+              hover:bg-red-500
+              dark:border-green-500
+              dark:hover:bg-green-500
+              dark:text-green-500
+              hover:text-white
+              dark:hover:text-white
+              transition 
+              duration-300
+              rounded-lg 
+              py-3 
+              px-6"
             >
               Show All
             </Link>
@@ -123,10 +132,10 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-12 bg-gray-100 dark:bg-gray-900">
+      <section className="py-8 bg-gray-100 dark:bg-gray-900">
         <Heading
           title={"Trusted By"}
-          subtitle={"Hear what our learners have to say about our courses."}
+          subtitle={"Hear what our learners have to say about our courses"}
         ></Heading>
 
         <div className="relative overflow-hidden h-96 container mx-auto">
@@ -164,7 +173,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-12 bg-gray-200 dark:bg-gray-800">
+      <section className="py-8 bg-gray-200 dark:bg-gray-900">
         <Heading
           title={"Frequently Asked Questions"}
           subtitle={"Have questions? We've got answers."}
