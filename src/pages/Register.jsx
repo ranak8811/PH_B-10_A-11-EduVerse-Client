@@ -160,7 +160,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-68px)] flex items-center justify-center bg-gradient-to-r from-gray-900 via-white to-gray-800 text-white dark:bg-gray-900">
+    <div className="min-h-[calc(100vh-68px)] flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200">
       <div className="w-full mx-auto flex flex-col lg:flex-row items-center justify-center">
         <div className="w-full lg:w-1/2 flex justify-center mb-6 lg:mb-0">
           <div className="w-96 lg:w-full max-w-md">
@@ -168,15 +168,15 @@ const Register = () => {
           </div>
         </div>
 
-        <div className="w-full lg:w-1/2 max-w-md p-8 bg-gray-800 dark:bg-gray-700 rounded-lg shadow-lg">
-          <h2 className="text-3xl font-bold text-center mb-6 text-green-400">
+        <div className="w-full lg:w-1/2 max-w-md p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+          <h2 className="text-3xl font-bold text-center mb-6 text-red-600 dark:text-green-400">
             Register Your Account
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-300"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Name
               </label>
@@ -186,7 +186,7 @@ const Register = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className={`input input-bordered w-full bg-gray-700 text-white placeholder-gray-500 ${
+                className={`input input-bordered w-full bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 ${
                   errors.name ? "border-red-500" : "border-gray-600"
                 }`}
                 placeholder="Enter your name"
@@ -199,7 +199,7 @@ const Register = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-300"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Email
               </label>
@@ -209,7 +209,7 @@ const Register = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`input input-bordered w-full bg-gray-700 text-white placeholder-gray-500 ${
+                className={`input input-bordered w-full bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 ${
                   errors.email ? "border-red-500" : "border-gray-600"
                 }`}
                 placeholder="Enter your email"
@@ -222,7 +222,7 @@ const Register = () => {
             <div className="relative">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-300"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Password
               </label>
@@ -233,7 +233,7 @@ const Register = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className={`input input-bordered w-full bg-gray-700 text-white placeholder-gray-500 ${
+                className={`input input-bordered w-full bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 ${
                   errors.password ? "border-red-500" : "border-gray-600"
                 }`}
                 placeholder="Enter your password"
@@ -252,7 +252,7 @@ const Register = () => {
             <div>
               <label
                 htmlFor="photoURL"
-                className="block text-sm font-medium text-gray-300"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Photo URL
               </label>
@@ -262,7 +262,7 @@ const Register = () => {
                 name="photoURL"
                 value={formData.photoURL}
                 onChange={handleChange}
-                className={`input input-bordered w-full bg-gray-700 text-white placeholder-gray-500 ${
+                className={`input input-bordered w-full bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 ${
                   errors.photoURL ? "border-red-500" : "border-gray-600"
                 }`}
                 placeholder="Enter your photo URL"
