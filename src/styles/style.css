@@ -8,14 +8,14 @@
 }
 
 .custom-link:hover {
-  background-color: red;
+  background-color: #ef4443;
   color: white;
   text-decoration: none;
 }
 
 .active {
   font-weight: bold;
-  background-color: red !important;
+  background-color: #ef4443 !important;
   color: white;
   text-decoration: underline;
 }
@@ -27,12 +27,12 @@
 }
 
 .dropdown-item:hover {
-  background-color: red;
+  background-color: #ef4443;
   color: white;
 }
 
 .active.dropdown-item {
-  background-color: red;
+  background-color: #ef4443;
   color: white;
   font-weight: bold;
 }

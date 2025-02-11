@@ -17,7 +17,7 @@ const Footer = () => {
           animate="visible"
           variants={variants}
           transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-          className="flex flex-col items-start gap-3"
+          className="flex flex-col items-center gap-3"
         >
           <img src={logo} alt="EduVerse Logo" className="w-12 h-12" />
           <motion.h1
@@ -39,7 +39,7 @@ const Footer = () => {
           </p>
         </motion.div>
 
-        <div>
+        <div className="text-center">
           <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-2">
             <li>
@@ -77,11 +77,11 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div>
+        <div className="text-center">
           <h3 className="text-lg font-semibold mb-4" id="contact">
             Follow Us
           </h3>
-          <div className="flex gap-4">
+          <div className="flex items-center justify-center gap-4">
             <Link
               to="https://www.facebook.com/ranaf8811"
               target="_blank"

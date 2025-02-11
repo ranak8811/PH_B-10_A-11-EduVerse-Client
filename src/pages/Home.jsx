@@ -95,7 +95,7 @@ const Home = () => {
         <Banner></Banner>
       </header>
 
-      <section className="my-4" id="pop-courses">
+      <section className="mt-10" id="pop-courses">
         <Heading
           title={"Popular Courses"}
           subtitle={
@@ -173,7 +173,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-8 bg-gray-200 dark:bg-gray-900">
+      <section className="pt-8 bg-gray-200 dark:bg-gray-900">
         <Heading
           title={"Frequently Asked Questions"}
           subtitle={"Have questions? We've got answers."}

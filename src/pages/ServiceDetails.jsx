@@ -138,7 +138,7 @@ const ServiceDetails = () => {
 
           <button
             onClick={handleBookNow}
-            className="mt-8 w-full bg-red-500 hover:bg-green-500 text-white font-bold py-3 rounded-lg transition duration-300"
+            className="mt-8 w-full bg-[#ed5a58] hover:bg-green-500 text-white font-bold py-3 rounded-lg transition duration-300"
           >
             Book Now
           </button>

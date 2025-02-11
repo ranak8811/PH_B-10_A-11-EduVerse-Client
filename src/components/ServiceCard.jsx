@@ -57,7 +57,7 @@ const ServiceCard = ({ course }) => {
 
           <button
             onClick={() => navigate(`/serviceDetails/${_id}`)}
-            className="mt-4 w-full bg-red-500 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
+            className="mt-4 w-full bg-red-400 hover:bg-green-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
           >
             View Details
           </button>
